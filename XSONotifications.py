@@ -1,23 +1,41 @@
-import socket, json
-from enum import Enum
+import json
+import socket
+from enum import Enum, IntEnum
 
-class XSMessageType(str, Enum):
-        Notification = 1
-        MediaPlayer = 2
+
+class XSMessageType(IntEnum):
+    Notification = 1
+    MediaPlayer = 2
+
 
 class XSIconType(str, Enum):
-        Default = 'default'
-        Error = 'error'
-        Warning = 'warning'
+    Default = "default"
+    Error = "error"
+    Warning = "warning"
+
 
 class XSAudioDefault(str, Enum):
-        Default = 'default'
-        Error = 'error'
-        Warning = 'warning'
+    Default = "default"
+    Error = "error"
+    Warning = "warning"
+
 
 class XSOMessage:
-    def __init__(self, index=0, messageType=XSMessageType.Notification, volume=0.7, audioPath=XSAudioDefault.Default, timeout=3.0,
-    title='', content='', icon=XSIconType.Default, height=175.0, opacity=1.0, useBase64Icon=False, sourceApp=''):
+    def __init__(
+        self,
+        index=0,
+        messageType=XSMessageType.Notification,
+        volume=0.7,
+        audioPath=XSAudioDefault.Default,
+        timeout=3.0,
+        title="",
+        content="",
+        icon=XSIconType.Default,
+        height=175.0,
+        opacity=1.0,
+        useBase64Icon=False,
+        sourceApp="",
+    ):
         self.index = index
         self.messageType = messageType
         self.volume = volume
@@ -37,7 +55,7 @@ class XSOMessage:
 
     @volume.setter
     def volume(self, val):
-        if val < 0.0 or val > 1.0 :
+        if val < 0.0 or val > 1.0:
             raise ValueError("Volume must be between 0.0 and 1.0")
         else:
             self._volume = val
@@ -59,29 +77,29 @@ class XSOMessage:
 
     @opacity.setter
     def opacity(self, val):
-        if val < 0.0 or val > 1.0 :
+        if val < 0.0 or val > 1.0:
             raise ValueError("Opacity must be between 0.0 and 1.0")
         else:
             self._opacity = val
-    
+
     @property
     def height(self):
         return self._height
 
     @height.setter
     def height(self, val):
-        if val < 0.0 or val > 250.0 :
+        if val < 0.0 or val > 250.0:
             raise ValueError("Height must be between 0.0 and 250")
         else:
             self._height = val
 
     def json_bytes(self):
         obj = self.__dict__
-        obj['volume'] = self.volume
-        obj['timeout'] = self.timeout
-        obj['opacity'] = self.opacity
-        obj['height'] = self.height
-        return json.dumps(obj).encode('utf-8')
+        obj["volume"] = self.volume
+        obj["timeout"] = self.timeout
+        obj["opacity"] = self.opacity
+        obj["height"] = self.height
+        return json.dumps(obj).encode("utf-8")
 
 
 class XSNotifier:

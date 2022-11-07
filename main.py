@@ -1,9 +1,13 @@
-from XSONotifications import XSOMessage, XSNotifier
+from XSONotifications import XSMessageType, XSNotifier, XSOMessage
 
 msg = XSOMessage()
-msg.messageType = 1
+msg.messageType = XSMessageType.Notification
 msg.title = "Example Notification!"
-msg.content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+msg.content = (
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod "
+    "tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, "
+    "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
+)
 msg.sourceApp = "XSNoti Python Test!"
 msg.opacity = 0.7
 
